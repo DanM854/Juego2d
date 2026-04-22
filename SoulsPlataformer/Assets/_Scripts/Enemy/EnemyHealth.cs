@@ -6,6 +6,8 @@ public class EnemyCombat : MonoBehaviour
     public int vida = 3;
     public float fuerzaRebote = 5f;
 
+    public int puntosMorir = 200;
+
     [Header("Ataque")]
     public float rangoAtaque = 4f;
     public int danio = 1;
@@ -122,5 +124,9 @@ public class EnemyCombat : MonoBehaviour
         movimiento.canMove = false;
 
         Destroy(gameObject, 1.5f); // ajusta al tiempo de animación
+
+        GameManager.Instance.SumarPuntos(puntosMorir);
+        Debug.Log("Enemigo eliminado. + " + puntosMorir + " puntos. Score total: " + GameManager.Instance.puntos);
+
     }
 }

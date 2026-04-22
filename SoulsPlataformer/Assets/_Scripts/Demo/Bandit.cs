@@ -8,7 +8,7 @@ public class Bandit : MonoBehaviour
     [SerializeField] float m_jumpForce = 7.5f;
 
     [Header("Vida")]
-    [SerializeField] int vida = 3;
+    public int vida = 10;
     [SerializeField] float fuerzaRebote = 6f;
 
     [Header("Ataque")]
@@ -123,7 +123,7 @@ public class Bandit : MonoBehaviour
         }
     }
 
-    // 🔥 CORREGIDO: ahora es PUBLIC
+    //  CORREGIDO: ahora es PUBLIC
     public void RecibeDanio(Vector2 posicionEnemigo, int danio)
     {
         if (recibiendoDanio || m_isDead) return;

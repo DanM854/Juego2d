@@ -27,10 +27,18 @@ public class GameManager : MonoBehaviour
     public Vector3 checkpointPosition;
     public Checkpoint checkpointActual;
 
-    
+    [Header("Pantalla Completado")]
+    public GameObject completadoPanel;
+    public Button reiniciarCompletoButton;
+    public Button menuCompletoButton;
+
+    private bool nivelCompletado = false;
+
+    public int puntos = 0;
 
     private void Awake()
     {
+        gameOverActivo = false;
         if (Instance == null)
         {
             Instance = this;
@@ -56,7 +64,8 @@ public class GameManager : MonoBehaviour
         if (menuButton != null)
             menuButton.onClick.AddListener(IrAlMenu);
 
-
+        if (completadoPanel != null)
+            completadoPanel.SetActive(false);
 
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null)
@@ -64,7 +73,9 @@ public class GameManager : MonoBehaviour
             checkpointPosition = player.transform.position;
         }
 
-        
+        Time.timeScale = 1f;
+        gameOverActivo = false;
+        nivelCompletado = false;
         Debug.Log("Panel activo al iniciar: " + gameOverPanel.activeSelf);
         
     }
@@ -83,6 +94,32 @@ public class GameManager : MonoBehaviour
             {
                 IrAlMenu();
             }
+        }
+
+        if (nivelCompletado)
+            {
+                if (Input.GetKeyUp(KeyCode.R))
+                    ReiniciarEscena();
+
+                if (Input.GetKeyUp(KeyCode.Escape))
+                    IrAlMenu();
+        }
+    }
+
+    public void NivelCompletado()
+    {
+        Debug.Log("NivelCompletado llamado desde: " + Time.time);
+
+        if (nivelCompletado) return;
+
+        nivelCompletado = true;
+        Time.timeScale = 0f;
+
+        if (completadoPanel != null)
+            completadoPanel.SetActive(true);
+        if (gameOverText != null)
+        {
+            gameOverText.text = "Completed\n\n\nR - Reiniciar\nESC - Menu";
         }
     }
 
@@ -140,5 +177,11 @@ public class GameManager : MonoBehaviour
         }
     }
 
+
+    public void SumarPuntos(int cantidad)
+    {
+        puntos += cantidad;
+        Debug.Log("Puntos: " + puntos);
+    }
 
 }
