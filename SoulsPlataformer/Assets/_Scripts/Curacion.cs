@@ -13,6 +13,7 @@ public class Curacion : MonoBehaviour
             Bandit player = collision.gameObject.GetComponent<Bandit>();
 
             player.CurarVidaa(curacion);
+            Destroy(gameObject);
         }
     }
 }
