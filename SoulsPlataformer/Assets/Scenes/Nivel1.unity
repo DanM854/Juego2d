@@ -415,6 +415,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7730023291812254614, guid: d4071901789ed384389951219d1e0315, type: 3}
   m_PrefabInstance: {fileID: 1035489601}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &261448599
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 261448600}
+  m_Layer: 3
+  m_Name: puntoAtaque
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &261448600
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 261448599}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.79, y: 1.25, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 587288670}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &467109239
 GameObject:
   m_ObjectHideFlags: 0
@@ -2659,6 +2690,22 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 1.3040044
       objectReference: {fileID: 0}
+    - target: {fileID: 114999745408315450, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
+      propertyPath: puntoAtaque
+      value: 
+      objectReference: {fileID: 261448600}
+    - target: {fileID: 114999745408315450, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
+      propertyPath: radioAtaque
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 114999745408315450, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
+      propertyPath: fuerzaRebote
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 114999745408315450, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
+      propertyPath: capaEnemigo.m_Bits
+      value: 64
+      objectReference: {fileID: 0}
     - target: {fileID: 212652212501150786, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
       propertyPath: m_SortingOrder
       value: 1
@@ -2669,6 +2716,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4588935210562790, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1369024868}
+    - targetCorrespondingSourceObject: {fileID: 4588935210562790, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 261448600}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3248535f6a2562c489a1223a75951ef2, type: 3}
 --- !u!1 &1242023912
@@ -20167,7 +20217,8 @@ GameObject:
   - component: {fileID: 1893281211}
   - component: {fileID: 1893281210}
   - component: {fileID: 1893281209}
-  m_Layer: 0
+  - component: {fileID: 1893281213}
+  m_Layer: 6
   m_Name: EnemySprite
   m_TagString: Enemy
   m_Icon: {fileID: 0}
@@ -20329,6 +20380,20 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1893281213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1893281207}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 160198d428671744a979e211045ddf3a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  vida: 3
+  fuerzaRebote: 5
 --- !u!1001 &1906810022
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -3,18 +3,24 @@ using System.Collections;
 
 public class Bandit : MonoBehaviour
 {
+    [Header("Movimiento")]
     [SerializeField] float m_speed = 4.0f;
     [SerializeField] float m_jumpForce = 7.5f;
 
-    [SerializeField] int vida = 3; 
+    [Header("Vida")]
+    [SerializeField] int vida = 3;
     [SerializeField] float fuerzaRebote = 6f;
+
+    [Header("Ataque")]
+    [SerializeField] Transform puntoAtaque;
+    [SerializeField] float radioAtaque = 0.5f;
+    [SerializeField] LayerMask capaEnemigo;
 
     private Animator m_animator;
     private Rigidbody2D m_body2d;
     private Sensor_Bandit m_groundSensor;
 
     private bool m_grounded = false;
-    private bool m_combatIdle = false;
     private bool m_isDead = false;
     private bool recibiendoDanio = false;
 
@@ -27,9 +33,15 @@ public class Bandit : MonoBehaviour
 
     void Update()
     {
-        if (m_isDead) return; 
+        if (m_isDead) return;
 
-        // Detectar suelo
+        DetectarSuelo();
+        Movimiento();
+        Inputs();
+    }
+
+    void DetectarSuelo()
+    {
         if (!m_grounded && m_groundSensor.State())
         {
             m_grounded = true;
@@ -41,41 +53,39 @@ public class Bandit : MonoBehaviour
             m_grounded = false;
             m_animator.SetBool("Grounded", false);
         }
+    }
 
+    void Movimiento()
+    {
         float inputX = Input.GetAxis("Horizontal");
 
-        // Girar personaje
         if (inputX > 0)
             transform.localScale = new Vector3(-1, 1, 1);
         else if (inputX < 0)
             transform.localScale = new Vector3(1, 1, 1);
 
-        // Movimiento (bloqueado si recibe daño)
         if (!recibiendoDanio)
             m_body2d.velocity = new Vector2(inputX * m_speed, m_body2d.velocity.y);
 
         m_animator.SetFloat("AirSpeed", m_body2d.velocity.y);
 
-        // Inputs
+        if (Mathf.Abs(inputX) > 0.1f)
+            m_animator.SetInteger("AnimState", 2);
+        else
+            m_animator.SetInteger("AnimState", 0);
+    }
+
+    void Inputs()
+    {
         if (Input.GetMouseButtonDown(0))
         {
             m_animator.SetTrigger("Attack");
+            Atacar();
         }
-        else if (Input.GetKeyDown(KeyCode.Space) && m_grounded)
+
+        if (Input.GetKeyDown(KeyCode.Space) && m_grounded)
         {
             Saltar();
-        }
-        else if (Mathf.Abs(inputX) > 0.1f)
-        {
-            m_animator.SetInteger("AnimState", 2); // correr
-        }
-        else if (m_combatIdle)
-        {
-            m_animator.SetInteger("AnimState", 1);
-        }
-        else
-        {
-            m_animator.SetInteger("AnimState", 0); // idle
         }
     }
 
@@ -88,6 +98,16 @@ public class Bandit : MonoBehaviour
         m_groundSensor.Disable(0.2f);
     }
 
+    void Atacar()
+    {
+        Collider2D[] enemigos = Physics2D.OverlapCircleAll(puntoAtaque.position, radioAtaque, capaEnemigo);
+
+        foreach (Collider2D enemigo in enemigos)
+        {
+            enemigo.GetComponent<Enemy>()?.RecibeDanio(1, transform.position);
+        }
+    }
+
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
@@ -95,7 +115,6 @@ public class Bandit : MonoBehaviour
             RecibeDanio(collision.transform.position, 1);
         }
     }
-
 
     void RecibeDanio(Vector2 posicionEnemigo, int danio)
     {
@@ -106,7 +125,6 @@ public class Bandit : MonoBehaviour
 
         m_animator.SetTrigger("Hurt");
 
-        // Knockback
         Vector2 direccion = (m_body2d.position - posicionEnemigo).normalized;
         m_body2d.velocity = Vector2.zero;
         m_body2d.AddForce(direccion * fuerzaRebote, ForceMode2D.Impulse);
@@ -131,8 +149,14 @@ public class Bandit : MonoBehaviour
         m_isDead = true;
         m_animator.SetTrigger("Death");
         m_body2d.velocity = Vector2.zero;
-
-        // Opcional: desactivar collider
         GetComponent<Collider2D>().enabled = false;
+    }
+
+    void OnDrawGizmosSelected()
+    {
+        if (puntoAtaque == null) return;
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(puntoAtaque.position, radioAtaque);
     }
 }
