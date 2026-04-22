@@ -24,6 +24,7 @@ public class Bandit : MonoBehaviour
     private bool m_isDead = false;
     private bool recibiendoDanio = false;
 
+
     void Start()
     {
         m_animator = GetComponent<Animator>();
@@ -33,7 +34,11 @@ public class Bandit : MonoBehaviour
 
     void Update()
     {
-        if (m_isDead) return;
+        if (m_isDead)
+        {
+            m_body2d.velocity = Vector2.zero;
+            return;
+        }
 
         DetectarSuelo();
         Movimiento();
@@ -134,7 +139,9 @@ public class Bandit : MonoBehaviour
 
         if (vida <= 0)
         {
+            
             Morir();
+            
         }
         else
         {
@@ -150,8 +157,13 @@ public class Bandit : MonoBehaviour
     void Morir()
     {
         m_isDead = true;
+
         m_animator.SetTrigger("Death");
+
         m_body2d.velocity = Vector2.zero;
+
+        m_body2d.simulated = false;
+
         GetComponent<Collider2D>().enabled = false;
     }
 

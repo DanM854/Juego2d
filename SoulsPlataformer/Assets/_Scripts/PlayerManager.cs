@@ -31,26 +31,15 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!muerto)
+        if (muerto)
         {
-            if (!atacando)
-            {
-                Movimiento();
-
-                RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, longitudRaycast, capaSuelo);
-                enSuelo = hit.collider != null;
-
-                if (enSuelo && Input.GetKeyDown(KeyCode.Space) && !recibiendoDanio)
-                {
-                    rb.AddForce(new Vector2(0f, fuerzaSalto), ForceMode2D.Impulse);
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Z) && !atacando && enSuelo)
-            {
-                Atacando();
-            }
+            rb.velocity = Vector2.zero;
+            return;
         }
+
+
+        
+        
 
         animator.SetBool("ensuelo", enSuelo);
         animator.SetBool("recibeDanio", recibiendoDanio);
@@ -58,27 +47,7 @@ public class PlayerController : MonoBehaviour
         animator.SetBool("muerto", muerto);
     }
 
-    public void Movimiento()
-    {
-        float velocidadX = Input.GetAxis("Horizontal") * Time.deltaTime * velocidad;
-
-        animator.SetFloat("movement", velocidadX * velocidad);
-        animator.SetFloat("movement", velocidadX * velocidad);
-
-        if (velocidadX < 0)
-        {
-            transform.localScale = new Vector3(-1, 1, 1);
-        }
-        if (velocidadX > 0)
-        {
-            transform.localScale = new Vector3(1, 1, 1);
-        }
-
-        Vector3 posicion = transform.position;
-
-        if (!recibiendoDanio)
-            transform.position = new Vector3(velocidadX + posicion.x, posicion.y, posicion.z);
-    }
+    
     public void RecibeDanio(Vector2 direccion, int cantDanio)
     {
         if (!recibiendoDanio)
@@ -88,6 +57,8 @@ public class PlayerController : MonoBehaviour
             if (vida <= 0)
             {
                 muerto = true;
+                rb.velocity = Vector2.zero;
+                rb.bodyType = RigidbodyType2D.Static;
                 if (GameManager.Instance != null)
                 {
                     GameManager.Instance.GameOver();

@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
         {
             Destroy(gameObject);
         }
-
+        if (gameOverPanel != null)
+            gameOverPanel.SetActive(false);
     }
 
 
@@ -62,6 +63,10 @@ public class GameManager : MonoBehaviour
         {
             checkpointPosition = player.transform.position;
         }
+
+        
+        Debug.Log("Panel activo al iniciar: " + gameOverPanel.activeSelf);
+        
     }
 
 
@@ -83,9 +88,12 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        Debug.Log("SE ACTIVÓ GAME OVER");
         if (gameOverActivo) return;
 
         gameOverActivo = true;
+
+        Time.timeScale = 0f;
 
         if (gameOverPanel != null)
         {
