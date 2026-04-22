@@ -87,9 +87,11 @@ public class PlayerController : MonoBehaviour
             vida -= cantDanio;
             if (vida <= 0)
             {
+                muerto = true;
                 if (GameManager.Instance != null)
                 {
-                    GameManager.Instance.RespawnJugador();
+                    GameManager.Instance.GameOver();
+                    //GameManager.Instance.RespawnJugador();
                 }
             }
             if (!muerto)
