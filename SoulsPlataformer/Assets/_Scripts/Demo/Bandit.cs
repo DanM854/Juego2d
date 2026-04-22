@@ -100,11 +100,13 @@ public class Bandit : MonoBehaviour
 
     void Atacar()
     {
+        if (puntoAtaque == null) return;
+
         Collider2D[] enemigos = Physics2D.OverlapCircleAll(puntoAtaque.position, radioAtaque, capaEnemigo);
 
         foreach (Collider2D enemigo in enemigos)
         {
-            enemigo.GetComponent<Enemy>()?.RecibeDanio(1, transform.position);
+            enemigo.GetComponent<EnemyCombat>()?.RecibeDanio(1, transform.position);
         }
     }
 
@@ -116,7 +118,8 @@ public class Bandit : MonoBehaviour
         }
     }
 
-    void RecibeDanio(Vector2 posicionEnemigo, int danio)
+    // 🔥 CORREGIDO: ahora es PUBLIC
+    public void RecibeDanio(Vector2 posicionEnemigo, int danio)
     {
         if (recibiendoDanio || m_isDead) return;
 
