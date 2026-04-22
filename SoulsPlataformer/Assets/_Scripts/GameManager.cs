@@ -35,6 +35,7 @@ public class GameManager : MonoBehaviour
     private bool nivelCompletado = false;
 
     public int puntos = 0;
+    public TextMeshProUGUI textoPuntaje;
 
     private void Awake()
     {
@@ -181,7 +182,15 @@ public class GameManager : MonoBehaviour
     public void SumarPuntos(int cantidad)
     {
         puntos += cantidad;
+        ActualizarPuntajeUI();
         Debug.Log("Puntos: " + puntos);
     }
+
+    void ActualizarPuntajeUI()
+    {
+        if (textoPuntaje != null)
+            textoPuntaje.text = puntos.ToString();
+    }
+
 
 }
