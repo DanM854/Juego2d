@@ -3315,9 +3315,9 @@ MonoBehaviour:
   menuButton: {fileID: 1412786287}
   checkpointPosition: {x: 0, y: 0, z: 0}
   checkpointActual: {fileID: 0}
-  completadoPanel: {fileID: 0}
-  reiniciarCompletoButton: {fileID: 0}
-  menuCompletoButton: {fileID: 0}
+  completadoPanel: {fileID: 204177579}
+  reiniciarCompletoButton: {fileID: 1984461331}
+  menuCompletoButton: {fileID: 1734867675}
   puntos: 0
   textoPuntaje: {fileID: 1397682014}
 --- !u!1 &955653133
@@ -16306,7 +16306,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -0.000061035156, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1476413114
