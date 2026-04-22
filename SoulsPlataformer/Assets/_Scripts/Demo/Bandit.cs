@@ -6,7 +6,7 @@ public class Bandit : MonoBehaviour
     [SerializeField] float m_speed = 4.0f;
     [SerializeField] float m_jumpForce = 7.5f;
 
-    [SerializeField] int vida = 3; // ❤️ VIDA
+    [SerializeField] int vida = 3; 
     [SerializeField] float fuerzaRebote = 6f;
 
     private Animator m_animator;
@@ -88,7 +88,6 @@ public class Bandit : MonoBehaviour
         m_groundSensor.Disable(0.2f);
     }
 
-    // 💥 COLISIÓN CON ENEMIGO
     void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("Enemy"))
