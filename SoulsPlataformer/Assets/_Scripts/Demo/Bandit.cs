@@ -165,6 +165,11 @@ public class Bandit : MonoBehaviour
         m_body2d.simulated = false;
 
         GetComponent<Collider2D>().enabled = false;
+
+        if (GameManager.Instance != null)
+        {
+            GameManager.Instance.GameOver();
+        }
     }
 
     void OnDrawGizmosSelected()

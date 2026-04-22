@@ -102,7 +102,7 @@ public class GameManager : MonoBehaviour
 
         if (gameOverText != null)
         {
-            gameOverText.text = "GAME OVER\n\nR - Reiniciar\nESC - Menu";
+            gameOverText.text = "You Died\n\n\nR - Reiniciar\nESC - Menu";
         }
     }
 
