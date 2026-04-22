@@ -9,6 +9,7 @@ public class Bandit : MonoBehaviour
 
     [Header("Vida")]
     public int vida = 10;
+    public int vidaMX = 10;
     [SerializeField] float fuerzaRebote = 6f;
 
     [Header("Ataque")]
@@ -30,6 +31,7 @@ public class Bandit : MonoBehaviour
         m_animator = GetComponent<Animator>();
         m_body2d = GetComponent<Rigidbody2D>();
         m_groundSensor = transform.Find("GroundSensor").GetComponent<Sensor_Bandit>();
+        vida = vidaMX;
     }
 
     void Update()
@@ -60,6 +62,14 @@ public class Bandit : MonoBehaviour
         }
     }
 
+    public void CurarVidaa( int cantidad)
+    {
+        vida += cantidad;
+        if (vida > vidaMX)
+        {
+            vida = vidaMX;
+        }
+    }
     void Movimiento()
     {
         float inputX = Input.GetAxis("Horizontal");
