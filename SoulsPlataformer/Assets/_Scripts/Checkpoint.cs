@@ -26,16 +26,6 @@ public class Checkpoint : MonoBehaviour
 
     void ActivarCheckpoint()
     {
-        if(GameManager.Instance != null)
-        {
-            GameManager.Instance.ActualizarCheckpoint(transform.position, this);
-        }
 
-        checkpointActivo = true;
-
-        if(spriteRenderer != null && spriteActivo != null)
-        {
-            spriteRenderer.sprite = spriteActivo;
-        }
     }
 }
