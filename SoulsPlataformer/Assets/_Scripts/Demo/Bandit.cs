@@ -159,4 +159,6 @@ public class Bandit : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawWireSphere(puntoAtaque.position, radioAtaque);
     }
+
+
 }
