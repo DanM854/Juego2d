@@ -13,6 +13,7 @@ public class Almas : MonoBehaviour
             {
                 GameManager.Instance.SumarPuntos(valor);
             }
+            AudioManager.instance.PlayAlmas();
             Destroy(gameObject);
         }
     }
